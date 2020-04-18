@@ -29,7 +29,12 @@ func New(token string) (*Client, error) {
 
 func (api *Client) FileList() (*Response, error) {
 	var res Response
-	if err := api.post("file/list", api, &res); err != nil {
+	param := struct {
+		Token string `json:"token"`
+	}{
+		Token: api.token,
+	}
+	if err := api.post("file/list", param, &res); err != nil {
 		return nil, err
 	}
 	if err := res.GetError(); err != nil {

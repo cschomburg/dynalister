@@ -112,6 +112,12 @@ func (d *Dynalist) ExportAll(outputPath string) error {
 	})
 }
 
+func (d *Dynalist) InboxAdd(content string) error {
+	change := &api.Change{Content: content}
+	_, err := d.client.InboxAdd(change)
+	return err
+}
+
 func getFullPath(outputPath string, parents []Node) string {
 	subPath := make([]string, 0, len(parents))
 	for i, n := range parents {
